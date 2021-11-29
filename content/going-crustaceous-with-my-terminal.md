@@ -58,7 +58,7 @@ Next on our list of ls clones but written in another language that isn't C and o
 
 ## $ procs
 
-![running procs to display the processes running](/going-crustaceous/exa-in-action.png)
+![running procs to display the processes running](/going-crustaceous/procs-in-action.png)
 
 [Procs](https://github.com/dalance/procs) is a replacement for ps that works on Linux and experimentally on macOS and Windows. Running the procs command without any arguments displays all processes running. The processes are displayed From the smallest to highest PID which is convenient. Of course there would be no point in rewriting ps without adding multi-coloured output, and it does this too.
 
