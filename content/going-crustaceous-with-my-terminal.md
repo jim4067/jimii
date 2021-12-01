@@ -1,11 +1,9 @@
 ---
-layout: post
 title: Going crustaceous with my terminal.
 excerpt: Using command line tools rewritten in rust.
 date: 2021-04-09
 updatedDate: 2021-04-13
 tags:
-    - post
     - rust
     - linux
     - cli

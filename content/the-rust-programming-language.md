@@ -3,7 +3,6 @@ layout: post
 title: The Rust Programming Language
 excerpt: An gentle intro to the rust programming language.
 date: 2021-10-30
-updatedDate: 2021-11-13
 tags:
     - post #Forgetting this line is unadvisable
     - rust
