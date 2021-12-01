@@ -25,6 +25,6 @@ after_dark_menu = [
     {url = "$BASE_URL", name = "Home"},
     # {url = "$BASE_URL/categories", name = "categories"},
     # {url = "$BASE_URL/tags", name = "tags"},
-    {url = "https://mutuku.me", name = "portfolio"}
+    {url = "https://mutuku.me/pages/resume", name = "portfolio"}
 ]
 after_dark_title = "Jimii's blog"
