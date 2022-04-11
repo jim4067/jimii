@@ -40,7 +40,7 @@ medusa --version
 
 Which should produce output shown below for first time users 
 
-![](/home/jimii/Documents/webcode/jimii/static/setting-up-medussa/medusa-cli-first.jpg)
+![Medusa Cli Output](/static/setting-up-medussa/medusa-cli-first.jpg)
 
 Now that we have medusa installed it's time to create our project. To do so we use
 
@@ -52,7 +52,7 @@ After a couple of minutes while the medusa-cli client does its thing, the proces
 
 You can now start your development server using `medusa develop`. You now have a fully functioning e-commerce backend server. By default Medusa with user port 9000 and from here you should be able to access routes that serve the product details. For example you should have some dummy data because we used the `--seed` option if you navigate to http://localhost:9000/store/products on your browser.
 
-![](/home/jimii/Documents/webcode/jimii/static/setting-up-medussa/sampleMedusaData.png)
+![Seeded Medusa Data](/static/setting-up-medussa/sampleMedusaData.png)
 
 
 
@@ -98,11 +98,11 @@ yarn develop
 
 This will start up the panel at part 7000, so head over to https://localhost:7000 and you should see a portal similar to the one below
 
-![](/home/jimii/Documents/webcode/jimii/static/setting-up-medussa/medusaAdminPortal.jpg)
+![Medusa Admin Portal Login](/static/setting-up-medussa/medusaAdminPortal.jpg)
 
 We seeded dummy data from medusa so to access the portal we can use the provided test credentials `admin@medusa-test.com` for our email and `supersecret` as our password. After a successful login the default screen as shown below will show up
 
-![](/home/jimii/Documents/webcode/jimii/static/setting-up-medussa/medusaAdminLanding.jpg)
+![Medusa Adming Landing](/static/setting-up-medussa/medusaAdminLanding.jpg)
 
 But the provided credentials are for testing whether we set up the portal correctly. To create our own user we will need to run the command below and set our email using and the password we want to use. Make sure to use Alphanumericals to make it more secure.
 
