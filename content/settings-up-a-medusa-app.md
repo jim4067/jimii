@@ -54,8 +54,6 @@ You can now start your development server using `medusa develop`. You now have a
 
 ![Seeded Medusa Data](/static/setting-up-medussa/sampleMedusaData.png)
 
-
-
 On the front end you have two options that you can use to interact with your backend server. `nextjs` or `gatsbyjs` depending on which you prefer. I prefer using nextjs so I will head over to their [starter template](https://github.com/medusajs/nextjs-starter-medusa)
 
 ```bash
@@ -72,8 +70,6 @@ yarn dev
 ```
 
 The last part will require you to install the admin panel. This admin is crucial if your site will be managed by non-technical folks. The admin panel enables you to set up the stores configuration, manage simple things like the website's name, currencies or shipping methods. 
-
-
 
 To get started with setting up the admin panel 
 
@@ -112,12 +108,8 @@ medusa user -e some@email.com -p some-password
 
 Medusa is composed of three components, the headless backend, the admin dashboard, and the storefront i.e the frontend. The medusa docs are well documented and they are worth checking out for more fine-grained about building your platform.
 
-
-
 And there you have. In under twenty commands you have fully set up medusa with the the backend, the frontend and the admin portal and you are now ready to begin customizing it as per your needs.
 
 Medusa is one of the projects that are being onboarded at Aviyel. Check out their page to find out more [Aviyel | Medusa](https://aviyel.com/projects/10/medusa)
-
-
 
 Join the [Aviyel]([Aviyel](https://discord.com/invite/sdxNdbANeX))
