@@ -1,8 +1,4 @@
-
-
-In the previous article [creating a medusa app](AVIYEL LINKE HERE), we created a Medusa app, from scratch. In this article we will deploy the medusa Back-End of our application to Azure.  For this we will use Azure app services.
-
-
+In the previous article [creating a medusa app](AVIYEL LINKE HERE), we created a Medusa app, from scratch. In this article we will deploy the medusa Back-End of our application to Azure.  For this we will use Digital Ocean.
 
 ## setting up medusa
 
@@ -79,40 +75,61 @@ git commit -m "chore: deploy config setup"
 git push origin master
 ```
 
+## Digital Ocean
+
+Sign into your Digital Ocean account and after the login you will be redirected to the default first-project page. 
+
+In this page click the upper right green create drop-down button and select apps, the third option. 
+
+![](/home/jimii/Documents/webcode/jimii/static/deploying-medusa-app/new-proj-digital-ocean-landing.jpg)
+
+You will be taken to a new repository to configure the new application that you want to create. Make sure that you have your online repo service provider i.e GitHub for my case, and Digital Ocean account linked. If not clicking mange access should pull up the GitHub authorization page to link your two accounts together.
+
+After authorizing your GitHub, select the repo where you pushed the medusa back-end code. Clicking next will take you to a resources page. This is where you can manage your serverless functions, databases... etc.  We want to add a dev database but if you are deploying for prod, the chose that. You also have the option to attach a previously created database. 
+
+![](/home/jimii/Documents/webcode/jimii/static/deploying-medusa-app/DO-db-resource-attaching.jpg)
+
+  
+
+We now need to configure the environmental variables, that we created earlier. These are just the values in your `.env` file.
+
+```shell
+DB_USERNAME=${db.USERNAME}
+DB_PASSWORD=${db.PASSWORD}
+DB_HOST=${db.HOSTNAME}
+DB_PORT=${db.PORT}
+DB_DATABASE=${db.DATABASE}
+REDIS_URL=${redis.DATABASE_URL}
+JWT_SECRET=your-jwt-secret
+COOKIE_SECRET=your-cookie-secret
+```
+
+After configuring your environmental variables, you now need to configure the name of your app and the region you want it to run from.
+
+Make sure that all these variables are valid otherwise your build will fail.
+
+Review your app and check the plan you want to be billed with and launch the app
+
+We will now setup our Redis Database. 
+
+Click on the drop-down create menu -> **Databases** -> select the data-center region you want to deploy it -> **select Redis** -> and finalize with the plan you want to be billed. 
+
+Finally name your database and create the DB cluster. If you chose to name your database something else then update the env vars using accordingly i.e this line `REDIS_URL=${redis.DATABASE_URL}`.
+
+On the left side navigation, go to apps and select the medusa app you deployed, to add the redis DB you created. Click the `create drop-down` and select `Create/Attach Database`, select previously created database and attach it to your app.
+
+![](/home/jimii/Pictures/Screenshots/Screenshot_20220512233130.png)
 
 
-## Azure
 
-Sign into your Azure account and go to the [Azure portal]([Microsoft Azure](https://portal.azure.com/#home)) and go to the app services section which is Microsoft's offering of a PAAS
-
-Once in the app services portal click, `create app service`. I am assuming that you have some familiarity with azure. If not, you may have something that looks like this in the basics tab. 
+Finally re-build and re-deploy your medusa backend. 
 
 
 
-There are six-steps in creating an web application on Azure app services. In the first tab/step you fill in the detail for your app, like name, the subscription where you want to be billed etc... You should have something that resembles this
+If for any reason your deploy should fail, in your app click on the deployment link to get the logs and see what went wrong. 
 
-# INSERT IMAGE HERE
+If everything goes according to plan, you should be able to visit your app 
 
-In the deployment tab select the repo that you hosted you medusa store code. 
-
-In the tabs that follow e.g networking and monitoring, the defaults should be okay left as they are. Review, create and deploy your medusa store.
-
-
-
-Click create. Once we have our web app created we need to create our Postgres database. In the azure portal search bar, type Postgres and select the first option. We will then create a Postgres database from here. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@ `https://your-endpoint.ondigitalocean.app/health`
 
 
