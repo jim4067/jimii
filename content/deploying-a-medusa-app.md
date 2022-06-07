@@ -1,4 +1,4 @@
-In the previous article [creating a medusa app](AVIYEL LINKE HERE), we created a Medusa app, from scratch. In this article we will deploy the medusa Back-End of our application to Azure.  For this we will use Digital Ocean.
+In the previous article [creating a medusa app]('./settings-up-a-medusa-app.md'), we created a Medusa app, from scratch. In this article we will deploy the medusa Back-End of our application to Azure.  For this we will use Digital Ocean.
 
 ## setting up medusa
 
@@ -120,16 +120,10 @@ On the left side navigation, go to apps and select the medusa app you deployed, 
 
 ![](/home/jimii/Pictures/Screenshots/Screenshot_20220512233130.png)
 
-
-
 Finally re-build and re-deploy your medusa backend. 
-
-
 
 If for any reason your deploy should fail, in your app click on the deployment link to get the logs and see what went wrong. 
 
 If everything goes according to plan, you should be able to visit your app 
 
 @ `https://your-endpoint.ondigitalocean.app/health`
-
-
