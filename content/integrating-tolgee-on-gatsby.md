@@ -4,32 +4,47 @@ The tolgee architecture would consist of a Server which is a REST-API backend as
 
 Gatsby is an open-source framework that combines functionality from React, GraphQL and Webpack into a single tool for building static websites and apps
 
-
-
 To get started with a sample gatsby project, install the `@tolgee/react` module
 
-`npm install @tolgee/react`
+by running `npm install @tolgee/react` on your terminal.
 
 Sign in/up on [tolgee platform](https://app.tolgee.io/) and create a project, with the languages you want to translate. In my case I want to translate from English to Swahili
 
 ![](/home/jimii/Documents/webcode/jimii/static/tolgee-gatsby-project/Screenshot_20220527191027.png)  
 
-
-
 We will add a few translations for both languages. This we will do by going to the 'Translation' tab on the left pane of the Tolgee dashboard. In our case our key name will be `greetings`
 
 Next generate the API keys by going to the integrate pane on the left side bar, chose the development weapon of choice, in our case Gatsby and finally select the scope of the API key. After this part, the generated key comes with very nice documentation on how to use tolgee with your Gatsby project.
 
+Upon creation of your Gatsby project, you will have something that looks like this
 
+```textile
+/
+|-- /.cache
+|-- /plugins
+|-- /public
+|-- /src
+    |-- /api
+    |-- /pages
+    |-- /templates
+    |-- html.js
+|-- /static
+|-- gatsby-config.js
+|-- gatsby-node.js
+|-- gatsby-ssr.js
+|-- gatsby-browser.js
+```
 
-If the `.env.development` file does not exist, create it and add the generated api key along the tolgee url
+If the `.env.development` file does not exist, create it and add the generated api key along with the tolgee url as demonstrated below.
+
+**NOTE** - all `.env` files live in the root of the project.
 
 ```shell
 GATSBY_TOLGEE_API_KEY=<API KEY>
 GATSBY_TOLGEE_API_URL=https://app.tolgee.io
 ```
 
-Create an `src/i18n` folder if it doesn't exist. Export your translations as JSON and save them to this `i18n` folder .
+Create an `i18` folder inside the `src` directory if it doesn't exist. Export your translations as JSON and save them to this `i18n` folder .
 
 Install the  `gatsby-plugin-intl` using npm. This plugin uses [react-intl](https://github.com/yahoo/react-intl) to internationalize your site. On production Gatsby will generate pages separately for each locale, so only locale that is needed is provided statically.
 
@@ -91,11 +106,3 @@ import {T} from "@tolgee/react";
 
 <T>translation_key</T>
 ```
-
-or 
-
-```js
-
-```
-
-
