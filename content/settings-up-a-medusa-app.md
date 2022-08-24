@@ -1,3 +1,7 @@
+---
+draft: true
+---
+
 # HOW TO SETUP A MEDUSA APP WITHOUT CREATE-MEDUSA-APP
 
 **Keyword:** [Enter Targeted Keyword]

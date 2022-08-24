@@ -1,10 +1,14 @@
-In the previous article [creating a medusa app]('./settings-up-a-medusa-app.md'), we created a Medusa app, from scratch. In this article we will deploy the medusa Back-End of our application to Azure.  For this we will use Digital Ocean.
+---
+draft: true
+---
+
+In the previous article [creating a medusa app]('./settings-up-a-medusa-app.md'), we created a Medusa app, from scratch. In this article we will deploy the medusa Back-End of our application to Azure. For this we will use Digital Ocean.
 
 ## setting up medusa
 
-First we will make sure that our environmental variables are setup correctly. Open up the medusa app you created last time using your favorite editor. We will first check our `.env` file to make sure we have all our secret keys and variables correctly defined and named.(You have no idea how many prod builds have been brought down by typo errors). So first confirm whether everything is correctly named. After that we import these environmental secrets in out `medusa-config.js` file. 
+First we will make sure that our environmental variables are setup correctly. Open up the medusa app you created last time using your favorite editor. We will first check our `.env` file to make sure we have all our secret keys and variables correctly defined and named.(You have no idea how many prod builds have been brought down by typo errors). So first confirm whether everything is correctly named. After that we import these environmental secrets in out `medusa-config.js` file.
 
-After checking that everything is okay, your medusa config file should resemble this 
+After checking that everything is okay, your medusa config file should resemble this
 
 ```shell
 const DB_USERNAME = process.env.DB_USERNAME;
@@ -28,7 +32,7 @@ module.exports = {
 };
 ```
 
-This is well and okay if you are planning to never make changes to the store. But that's usually not the case. It is better to separate and use different configurations for production, development and testing. When making changes you don't want to unnecessarily update your production database or deploy a feature that hasn't been thoroughly tested. So you could update your config file by adding the following lines. Next add [cross-env](https://www.npmjs.com/package/cross-env) package to set the environmental variables inline when running node commands. 
+This is well and okay if you are planning to never make changes to the store. But that's usually not the case. It is better to separate and use different configurations for production, development and testing. When making changes you don't want to unnecessarily update your production database or deploy a feature that hasn't been thoroughly tested. So you could update your config file by adding the following lines. Next add [cross-env](https://www.npmjs.com/package/cross-env) package to set the environmental variables inline when running node commands.
 
 ```shell
 if (process.env.NODE_ENV === "development") {
@@ -67,7 +71,7 @@ Add the node engine field in the `package.json` file to include since azure app 
 ...
 ```
 
-After the changes stage, commit and push your changes to your remote repo. 
+After the changes stage, commit and push your changes to your remote repo.
 
 ```shell
 git add .
@@ -77,19 +81,17 @@ git push origin master
 
 ## Digital Ocean
 
-Sign into your Digital Ocean account and after the login you will be redirected to the default first-project page. 
+Sign into your Digital Ocean account and after the login you will be redirected to the default first-project page.
 
-In this page click the upper right green create drop-down button and select apps, the third option. 
+In this page click the upper right green create drop-down button and select apps, the third option.
 
 ![](/home/jimii/Documents/webcode/jimii/static/deploying-medusa-app/new-proj-digital-ocean-landing.jpg)
 
 You will be taken to a new repository to configure the new application that you want to create. Make sure that you have your online repo service provider i.e GitHub for my case, and Digital Ocean account linked. If not clicking mange access should pull up the GitHub authorization page to link your two accounts together.
 
-After authorizing your GitHub, select the repo where you pushed the medusa back-end code. Clicking next will take you to a resources page. This is where you can manage your serverless functions, databases... etc.  We want to add a dev database but if you are deploying for prod, the chose that. You also have the option to attach a previously created database. 
+After authorizing your GitHub, select the repo where you pushed the medusa back-end code. Clicking next will take you to a resources page. This is where you can manage your serverless functions, databases... etc. We want to add a dev database but if you are deploying for prod, the chose that. You also have the option to attach a previously created database.
 
 ![](/home/jimii/Documents/webcode/jimii/static/deploying-medusa-app/DO-db-resource-attaching.jpg)
-
-  
 
 We now need to configure the environmental variables, that we created earlier. These are just the values in your `.env` file.
 
@@ -110,9 +112,9 @@ Make sure that all these variables are valid otherwise your build will fail.
 
 Review your app and check the plan you want to be billed with and launch the app
 
-We will now setup our Redis Database. 
+We will now setup our Redis Database.
 
-Click on the drop-down create menu -> **Databases** -> select the data-center region you want to deploy it -> **select Redis** -> and finalize with the plan you want to be billed. 
+Click on the drop-down create menu -> **Databases** -> select the data-center region you want to deploy it -> **select Redis** -> and finalize with the plan you want to be billed.
 
 Finally name your database and create the DB cluster. If you chose to name your database something else then update the env vars using accordingly i.e this line `REDIS_URL=${redis.DATABASE_URL}`.
 
@@ -120,10 +122,10 @@ On the left side navigation, go to apps and select the medusa app you deployed, 
 
 ![](/home/jimii/Pictures/Screenshots/Screenshot_20220512233130.png)
 
-Finally re-build and re-deploy your medusa backend. 
+Finally re-build and re-deploy your medusa backend.
 
-If for any reason your deploy should fail, in your app click on the deployment link to get the logs and see what went wrong. 
+If for any reason your deploy should fail, in your app click on the deployment link to get the logs and see what went wrong.
 
-If everything goes according to plan, you should be able to visit your app 
+If everything goes according to plan, you should be able to visit your app
 
 @ `https://your-endpoint.ondigitalocean.app/health`
