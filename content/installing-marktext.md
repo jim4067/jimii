@@ -1,11 +1,12 @@
----
-title: Installing marktext on Deepin or most Debian derived distros.
-excerpt: Little guide on how to install marktext
-date: 2021-11-28
-updatedDate: 2021-11-28
-tags:
-- linux
----
++++
+title = "Installing marktext on Deepin or most Debian derived distros."
+excerpt = "Little guide on how to install marktext"
+date = 2021-11-28
+updatedDate = 2021-11-28
+
+[taxonomies]
+tags = ["linux"]
++++
 
 So yeah, I messed with Linux yesterday and ended up paying the ultimate price. I was trying to delete the trash folder from the command line and ended deleting the local `bin` directory. Reading through a couple of the answers given to a poor soul who had done what I had done on Stack Overflow, I knew that I was going to reinstall the OS again. It wasn't the firs time I was was going to do this and it definitely that last. Most of my important documents included the 200GB homework folder, are kept in the data partition, so I wasn't worried about losing anything important to me. What I was worried about was reinstalling the software I regularly use, because let me tell. Anyone who has been unlucky enough to dabble in this Linux cult will tell you, that God has smiled on you if you actually installed and run a package on the first try. It's too rare an occasion that I think we should have a nobel prize for folks who have lady luck smiling on them when installing Linux.
 <!-- more -->

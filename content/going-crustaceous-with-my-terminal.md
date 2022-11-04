@@ -1,16 +1,17 @@
----
-title: Going crustaceous with my terminal.
-excerpt: Using command line tools rewritten in rust.
-date: 2021-04-09
-updatedDate: 2021-04-13
-tags:
-    - rust
-    - linux
-    - cli
----
++++
+title = "Going crustaceous with my terminal."
+excerpt = "Using command line tools rewritten in rust."
+date = 2021-04-09
+updatedDate = 2021-04-13
+
+[taxonomies]
+tags = [ "rust", "linux", "cli"]
++++
 
 Okay! Okay! Okay! So not the most creative or original title out there but, hey iris wariris. Creativity ain't one of my strong suits. As a developer one of the most frequent questions you will hear upon encountering a new language will be, 'Well what is it used for?' quickly followed by 'Who uses this?'. This I assume must what going through a developers head as they go through the stack overflow survey and find out that rust is the most loved language. But wait. Didn't the language just hit 1.0 in 2015 ?. Yes! Is it really mature for production use you might ask. Yes. Five years is a really long time in developer years. Several well known companies use rust in production and others are soon set to add to the numbers. While there are many areas where rust is used, I will focus my attention today on command line tools to make the development experience for developers smooth.
+
 <!-- more -->
+
 ## $ bat
 
 ![Using bat on my terminal to show git changes made to the.eleventy.js file](/going-crustaceous/bat-in-action.png)

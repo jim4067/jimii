@@ -1,10 +1,11 @@
----
-title: The future is bright.
-excerpt: A rant about rust and programming languages.
-date: 2021-05-09
-tags:
-    - rust
----
++++
+title = "The future is bright."
+excerpt = "A rant about rust and programming languages."
+date = 2021-05-09
+
+[taxonomies]
+tags = ["rust"]
++++
 
 If you happen to visit the official sites for most languages (programming) these days, one thing that is most certainly to stands out is that, even though they are technical tool to get the job gone, most of them are going the extra mile to put a smile on the developer. A happy developer is a productive developer as they say. And I personally think that this is the main reason that languages are doing this. Making a developer's life easier. Think about it for a second. What is the point of creating language B, while language A already exists and accomplish the same tasks, churns out the exact same scores when benchmarks are run with no change in developer experience. It is more about the 'developer experience' these days. 
 <!-- more -->

@@ -1,9 +1,10 @@
----
-title: Open source projects are challenging SaaS giant.
-date: 2021-12-01
-tags:
-    - open-source
----
++++
+title = "Open source projects are challenging SaaS giant."
+date = 2021-12-01
+
+[taxonomies]
+tags =["open-source"]
++++
 
 ![](/open-source-saas-projects-are-challenging-SaaS-giants/image-21-resized.png)
 

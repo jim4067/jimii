@@ -1,12 +1,14 @@
----
-title: Dark Matter & Dark Energy
-category: "astrophysics"
-date: 2021-05-03
-updatedDate: 2021-05-07
-tags: "astrophysics"
---- 
++++
+title = "Dark Matter & Dark Energy"
+date = 2021-05-03
+updatedDate = 2021-05-07
+
+[taxonomies]
+tags = ["astrophysics"]
++++
 
 Dark matter and dark energy. For quite sometime I struggled with what the two were. At first I thought that the two were one and the same thing, I mean they both had the same work 'dark' in them. But it is unnatural for Physicists to use synonyms to describe similar concepts(take velocity and speed - both describe how fast an object is moving but speed is a scalar quantity while velocity is a vector quantity). So I did what any normal person in my situations would do and turned to my good ol' pal, the internet because it never lies, right? After some time it become clear that, while yes we do know that the two exist, no one know the how, when or why they do. But through numerous experiments, we know more about what dark matter is not.
+
 <!-- more -->
 
 ### Dark matter
