@@ -1,6 +1,6 @@
 +++
 title = "My EthIndia Fellowship Experience"
-date = 2022-01-14
+date = 2023-03-20
 category = "Prog"
 draft=true
 
@@ -8,7 +8,11 @@ draft=true
 tags = [ "other"]
 +++
 
+![](/eif3/eif3cover.png)
+
 With my end of semester one exams looming over the horizon, January 2023 like a scene straight out of a horror movie where the monster is a pile of textbooks and the victim is my sanity!"
+
+<!-- more -->
 
 coming off the high of participating in the MLH fellowship just the previoulsy I was beyond excited when I got the news of my accpetance
 
