@@ -1,6 +1,6 @@
 +++
 title = "Week Two of EthIndia"
-date = 2023-01-17
+date = 2023-02-17
 category = "Prog"
 
 [taxonomies]
