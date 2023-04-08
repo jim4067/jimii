@@ -1,10 +1,10 @@
 +++
-title = "Week One of EthIndia"
+title = "Week One and Two"
 date = 2023-02-12
 category = "Prog"
 
 [taxonomies]
-tags = [ "ethereum", "solana"]
+tags = ["EthIndia"]
 +++
 
 I am [part of](https://opensea.io/assets/matic/0xfe8321df99317c365797c4f95c2dbd9beec8c694/8) the EthIndia fellowship 3.0 as a Wei fellow. I'll share a blog of my [overall experience](../eif-experience) and more about the fellowship in a wrap-up blog after my eight weeks are up. I'll use this blog as a weekly log of my experience going through the [speedrunethereum challenges](https://speedrunethereum.com/). It'll also help keep me accountable
@@ -12,6 +12,8 @@ I am [part of](https://opensea.io/assets/matic/0xfe8321df99317c365797c4f95c2dbd9
 In the first four weeks of the fellowship, I'll be going through the [speedrunethereum challenges](https://speedrunethereum.com/) and I will use this blog to posting weekly logs to help keep me accountable.
 
 <!-- more -->
+
+# Week One
 
 I'll share the challenges I faced while working on the challenges and on Ethereum and how I found the experience coming from a Solana background (yes I am that guy 🤙).
 
@@ -131,8 +133,40 @@ console.log(
 );
 ```
 
-## Next Steps
+# week Two
 
--   Get started working on challenge 2 and 3.
+Week two of the fellowship and I learned about ERC20 Tokens and How not Random block hashes are given the deterministic nature of Ethereum. 
 
-See you next week for the next one. Should you come across any error or technically incorrect information here, reach out [@jimii_47](https://twitter.com/jimii_47)
+
+## [challenge two](https://speedrunethereum.com/challenge/token-vendor)
+
+Neat things I took note of.
+
+1. Testing of emitted events can be done like so.
+
+    ```js
+    console.log("\t", " 💸 Buying...");
+    const buyTokensResult = await vendor.buyTokens({
+    	value: ethers.utils.parseEther("0.001"),
+    });
+    console.log("\t", " 🏷  buyTokens Result: ", buyTokensResult.hash);
+
+    console.log("\t", " ⏳ Waiting for confirmation...");
+    const txResult = await buyTokensResult.wait();
+    expect(txResult.status).to.equal(1);
+
+    await expect(buyTokensResult).to.emit(vendor, "BuyTokens");
+    ```
+
+2. Learnt about the `override` keyword which allows the return type of an inherited function to be changed.
+   To allow the function in the parent contract to be overridden, it needs to have the `virtual` keyword.
+3. `transfer` moves the tokens from your Token contract while `transferFrom` moves `allowed` tokens that have been `approved` from one address to another.
+
+For further reading check the [open zeppelin](https://docs.openzeppelin.com/contracts/2.x/api/token/erc20) implementation of the ERC20 contract.
+
+
+## [challenge three](https://speedrunethereum.com/challenge/dice-game)
+
+This challenge was relatively easy to work out as I just needed to copy the functions from the Dice game onto my exploitive contract.
+
+Check out the verified contract [here](https://goerli.etherscan.io/address/0xb9e3f57e4f800f68105a0e34a50369a21d1b0749#code)

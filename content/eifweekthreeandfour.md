@@ -4,7 +4,7 @@ date = 2023-03-07
 category = "Prog"
 
 [taxonomies]
-tags = [ "ethereum"]
+tags = [ "EthIndia"]
 +++
 
 Third and fourth week participating in EthIndia fellowship.
