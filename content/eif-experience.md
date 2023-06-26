@@ -55,7 +55,7 @@ There were three main reasons, I decided to take part in the fellowship.
 
 ## Pre-Fellowship Prep <a name="pre-fellowship"></a>
 
-Pre-fellowship preparation can be a daunting task, but my experience having gone through the MLH fellowship taught me persistence and having clear goals that align with what the fellowship entails is key. An added advantage is seeking advice from a mentor or previous fellow to learn about what they look for when screening applicants. I would know 😂, having been rejected almost five times from the MLH fellowship. [あきらめかけているあなた (NEVER GIVE UP!)](youtube.com/watch?v=KxGRhd_iWuE)
+Pre-fellowship preparation can be a daunting task, but my experience having gone through the MLH fellowship taught me persistence and having clear goals that align with what the fellowship entails is key. An added advantage is seeking advice from a mentor or previous fellow to learn about what they look for when screening applicants. I would know 😂, having been rejected almost five times from the MLH fellowship. [あきらめかけているあなた (NEVER GIVE UP!)](https://youtube.com/watch?v=KxGRhd_iWuE)
 
 As Eren once famously said,
 
