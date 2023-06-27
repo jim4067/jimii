@@ -66,11 +66,12 @@ host    all             all             127.0.0.1/32            scram-sha-256
 # IPv6 local connections:
 host    all             all             ::1/128                 scram-sha-256
 ```
+
 The `first column` represents the connection type, i.e are you connecting to the db locally or remotely via TCP/IP ...etc
 The `second column` represents the database you want to connect to all.
 The `third column` represents the user that is connecting to the database.
 The `fourth column` represents the `addresses` where the connection requests might come from.
-The `last column` represents the auth method. `scram-sha-256` replaced `md5` which was the password auth that was used and replaced due to security concerns. 
+The `last column` represents the auth method. `scram-sha-256` replaced `md5` which was the password auth that was used and replaced due to security concerns.
 
 ## Creating a Database
 
@@ -207,18 +208,19 @@ CREATE TABLE students
 (
   student_id SERIAL PRIMARY KEY,
   first_name TEXT,
-  age,
+  age SMALLINT,
+  birth_date DATE,
 );
 ```
 
-The tests table references the students table column `student_id` in the `highest_student_id` column.
+The tests table references the students table column `student_id` in the `student_id` column.
 
 ```sql
 CREATE TABLE tests
 (
    subject_id SERIAL,
    subject_name text,
-   highest_student_id integer REFERENCES students
+   student_id integer REFERENCES students
 );
 ```
 
@@ -279,6 +281,14 @@ ALTER TABLE students ALTER COLUMN age SET DATA TYPE smallint;
 `or`
 ALTER TABLE students ALTER COLUMN age TYPE smallint;
 ```
+
+To extract, say the month from a datetime data type,
+
+```sql
+SELECT * from students where EXTRACT(MONTH FROM birth_date) = 10;
+```
+
+select the birthdate of students who were born in October.
 
 ## conditional operators and filters
 
