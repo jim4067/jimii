@@ -3,6 +3,7 @@ title = "Installing marktext on Deepin or most Debian derived distros."
 excerpt = "Little guide on how to install marktext"
 date = 2021-11-28
 updatedDate = 2021-11-28
+draft = true
 
 [taxonomies]
 tags = ["linux"]

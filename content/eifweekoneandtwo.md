@@ -1,5 +1,5 @@
 +++
-title = "Week One and Two"
+title = "Week One and Two of EthIndia"
 date = 2023-02-12
 category = "Prog"
 

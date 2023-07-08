@@ -116,3 +116,7 @@ To list available functions using `psql`
 ```sql
 \df
 ```
+
+## Further Reading
+
+[prisma guide](https://www.prisma.io/dataguide/datamodeling/intro-dont-panic)
