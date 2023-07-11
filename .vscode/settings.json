@@ -1,8 +1,15 @@
 {
     "cSpell.words": [
+        "actix",
+        "clippy",
         "Devfolio",
+        "dotenvy",
         "Naruto",
+        "println",
+        "smallint",
         "staker",
-        "trilemma"
+        "struct",
+        "trilemma",
+        "VARCHAR"
     ]
 }

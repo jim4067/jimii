@@ -19,6 +19,8 @@ We will use [Actix](https://actix.rs/docs/whatis) - a powerful and pragmatic web
 
 1. [Introduction](#introduction)
 2. [Diesel and Postgres](#diesel-postgres)
+    - [Setting up Our Project with Diesel CLI](#diesel-cli)
+    - [Using Diesel in Our Project](#diesel-orm)
     - [our crud db operations](#crud-impl)
     - [Tests for our database](#db-tests)
 
@@ -40,9 +42,9 @@ Some convenient tools, that will make our development easier that you should ins
 cargo install cargo-edit cargo-watch
 ```
 
-Finally, here is how we want to model our file structure, following the separation of concern design principle.
+Separating our code accordingly, here is an overview of how our file structure will look after we are done.
 
-We will create these files as we go along and explain what each does.
+No need to get started creating the files yet, we will do so as we move along.
 
 ```
 contacts-backend
@@ -67,6 +69,7 @@ contacts-backend
 ├── diesel.toml
 ├── Cargo.toml
 └── Cargo.lock
+└── diesel.toml
 ```
 
 ## Diesel and Postgres <a name="diesel-postgres"></a>
@@ -98,6 +101,8 @@ Phone: string
 city: string
 country: string
 ```
+
+### Setting up Our Project with Diesel CLI <a name="diesel-cli"></a>
 
 Diesel is a Rust ORM. It also comes with a convenient tool to enable us manage our database schemas. [diesel_cli](https://diesel.rs/guides/configuring-diesel-cli.html).
 
@@ -138,7 +143,7 @@ Make sure that you don't have any trailing white space for the `DATABASE_URL` va
 | :----------------------------------------------- |
 | Don't forget to add .env, to the .gitignore file |
 
-The `setup` command below from diesel, will create our database if we haven't already and an empty `migrations` directory.
+The `setup` command below from diesel, will create our database if we haven't already, an empty `migrations` directory and a [`diesel.toml`](https://diesel.rs/guides/configuring-diesel-cli.html) file, that configures the behaviour of diesel cli.
 
 ```
 diesel setup
@@ -212,6 +217,8 @@ Finally, do the thing, `diesel migration run`.
 | **NOTE:**                                                                           |
 | :---------------------------------------------------------------------------------- |
 | Trailing commas in SQL are not allowed. Also `user` is a reserved word in postgres. |
+
+### Using Diesel ORM in our Project<a name="diesel-orm"></a>
 
 We can now cd into the `src` directory and write the code for integrating the db. Create `db.rs` which we will use to establish a connection to our database.
 
@@ -583,7 +590,7 @@ mod tests {
 
 You might be asking why we are using a mutable reference for the connection variable, and the answer to that would be because [diesel 2.0](https://diesel.rs/guides/migration_guide.html#2-0-0-mutable-connection) changed their API.
 
-We can call it a day and finish testing **updates** and **deletions**. For that remember we derived the [`AsChangeSet`](https://docs.diesel.rs/2.1.x/diesel/prelude/derive.AsChangeset.html) trait on our `UserProfile` struct in `src/models/user.rs`
+**NOTE:** The line `use crate::schema::user_profile::dsl::*;` imports a bunch of code so that we don't have to write `user_profile::table`. The diesel guides recommend that you import it inside your function to avoid polluting your namespace, but since we are only working with the relation, I think it's safe to leave it as is.
 
 As before, we will need to first create a function to update our relation row in the `src/data/contact_repository.rs`.
 
@@ -600,6 +607,20 @@ pub fn update_user_profile_by_id(
 ```
 
 Passing in our `UserProfile` itself is how we are selecting the user_profile to update. It is equivalent to doing, `update(user_profile.find(user_profile.user_id))` or `update(user_profile.filter(user_id.eq(user_profile.user_id)))`
+
+We finally add the function for our `delete` operation.
+
+```rs
+pub fn delete_user_profile_by_id(user_id: &i32, conn: &mut PgConnection) {
+    use crate::schema::user_profile::dsl::*;
+
+    diesel::delete(user_profile.filter(user_id.eq(user_id)))
+        .execute(conn)
+        .expect("error deleting the user record");
+}
+```
+
+Notice the use of the `use crate::schema::user_profile::dsl::*;` which enables us avoid having to write `user_profile::table` each time we want to run a query.
 
 In our `src/db_tests.rs` file, we are going to create a function that abstracts the creation of a new user for us and use it instead of declaring a `new_user` with struct literals in each test.
 
@@ -646,16 +667,23 @@ fn test_user_profile_update_and_delete() {
         assert_eq!(updated_user.first_name, _first_name);
         assert_eq!(updated_user.last_name, _last_name);
 
-        let res = read_user_profile_records(conn).unwrap();
+        let res = read_user_profile_records(conn)?;
         assert_eq!(res.len(), 1);
+
+        //deleting our user
+        delete_user_profile_by_id(&updated_user.user_id, conn);
+        let users = read_user_profile_records(conn)?;
+        assert!(users.is_empty());
 
         Ok(())
     });
 }
 ```
 
-You might be wondering why the values that we will update have an underscore to them. Well, it is because diesel defined our fields for `UserProfile` as their own types in `src/schema.rs`. More on this in the [diesel guides](https://diesel.rs/guides/schema-in-depth.html).
+In this test we **update** a user_profile, **delete** it and assert that the array of users is empty at the end of the test.
 
-The code up to this point can be found in [this commit](https://github.com/687c/contacts-backend/commit/6c6bae7ea698f9ac78cfdb6cd1f27b63520e4556).
+You might be wondering why the values we are updating are declared with an underscore to them i.e `let _username = ...`. This is because the generated `src/schema.rs` code is a rust `table!` module, with each of the fields/columns being generated as structs that implement the [`Expression`](https://docs.diesel.rs/2.1.x/diesel/expression/trait.Expression.html) trait. More on this in the [diesel guides](https://diesel.rs/guides/schema-in-depth.html).
+
+The code up to this point can be found in [this branch](https://github.com/687c/contacts-backend/tree/part-one).
 
 In the [next part](../contacts-backend-part-2/) we will set up everything with actix and get our api ready.
