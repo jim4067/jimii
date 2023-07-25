@@ -1,6 +1,7 @@
 +++
 title = "Build a Simple Backend API Server with Actix and Diesel 1"
 date = 2023-07-10
+updatedDate = 2023-07-11
 category = "Prog"
 
 [taxonomies]
@@ -26,9 +27,9 @@ We will use [Actix](https://actix.rs/docs/whatis) - a powerful and pragmatic web
 
 ## Introduction <a name="introduction"></a>
 
-This article assumes that you are familiar with [Rust](rust-lang.org).
+This article assumes that you are familiar with [Rust](https://rust-lang.org).
 
-If not fret not, If you have build a server using another framework like express before, it will be easy to identify patterns between the two. _P.S - set up your rust dev environment by following [this guide](rust-lang.org/learn/get-started)_
+If not fret not, If you have build a server using another framework like express before, it will be easy to identify patterns between the two. _P.S - set up your rust dev environment by following [this guide](https://rust-lang.org/learn/get-started)_
 
 Scaffold and new Rust project using cargo by running, `cargo new contacts-backend` on the terminal.
 

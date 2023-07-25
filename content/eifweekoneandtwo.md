@@ -13,11 +13,23 @@ In the first four weeks of the fellowship, I'll be going through the [speedrunet
 
 <!-- more -->
 
-# Week One
+# Table of contents
+-   [Week One](#week-one)
+
+    -   [challenge zero](#challenge-zero)
+    -   [comparison to Solana](#solana-comparison)
+    -   [challenge one](#challenge-one)
+
+-   [Week Two](#week-two)
+
+    -   [challenge two](#challenge-two)
+    -   [challenge Three](#challenge-three)
+
+# Week One <a name="week-one"></a>
 
 I'll share the challenges I faced while working on the challenges and on Ethereum and how I found the experience coming from a Solana background (yes I am that guy 🤙).
 
-## [challenge zero](https://speedrunethereum.com/challenge/simple-nft-example)
+## [challenge zero](https://speedrunethereum.com/challenge/simple-nft-example) <a name="challenge-zero"></a>
 
 The first challenge is a simple walk-through to get you acquainted with how `speedrunethereum` works and help you set up your dev-tooling.
 
@@ -30,7 +42,7 @@ After going through the first challenge, I did some [self-learning about NFTs](h
 
 [Link](https://testnets.opensea.io/assets/goerli/0x41cd30b16d968ee43317289b3b8d96e25872d3bf/3) to NFT I minted (Kobeni Supremacy 🛐).
 
-### Comparison to Solana
+## Comparison to Solana <a name="solana-comparison"></a>
 
 Working with NFTs in Solana is different to Ethereum. Lets start from the very beginning.
 
@@ -42,7 +54,7 @@ Secondly, accounts on Solana are stateless. That means your programs/smart-contr
 
 Finishing it off, there is then the concept of `associated token account` (I'm not talking about this).
 
-## [challenge one](https://speedrunethereum.com/challenge/decentralized-staking)
+## [challenge one](https://speedrunethereum.com/challenge/decentralized-staking) <a name="challenge-one"></a>
 
 The second challenge dealt with building a Decentralized staking app.
 
@@ -133,12 +145,11 @@ console.log(
 );
 ```
 
-# week Two
+# Week two <a name="week-two"></a>
 
-Week two of the fellowship and I learned about ERC20 Tokens and How not Random block hashes are given the deterministic nature of Ethereum. 
+Week two of the fellowship and I learned about ERC20 Tokens and How not Random block hashes are given the deterministic nature of Ethereum.
 
-
-## [challenge two](https://speedrunethereum.com/challenge/token-vendor)
+## [challenge two](https://speedrunethereum.com/challenge/token-vendor) <a name="challenge-two"></a>
 
 Neat things I took note of.
 
@@ -164,8 +175,7 @@ Neat things I took note of.
 
 For further reading check the [open zeppelin](https://docs.openzeppelin.com/contracts/2.x/api/token/erc20) implementation of the ERC20 contract.
 
-
-## [challenge three](https://speedrunethereum.com/challenge/dice-game)
+## [challenge three](https://speedrunethereum.com/challenge/dice-game) <a name="challenge-three"></a>
 
 This challenge was relatively easy to work out as I just needed to copy the functions from the Dice game onto my exploitive contract.
 
