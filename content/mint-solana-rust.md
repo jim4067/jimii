@@ -133,7 +133,7 @@ These are the crates that we will need to create our program.
 -   [`mpl-token-metadata`](https://docs.rs/mpl-token-metadata/1.13.0/mpl_token_metadata/) allowing us to use Metaplex functions to add metadata to our token.
 
 ```bash
-cargo add solana-program@=1.14.19
+cargo add solana-program@=1.14.20
 cargo add borsh@0.9.3
 cargo add borsh-derive@0.9.3
 cargo add spl-token@3.3.0 --features=no-entrypoint
