@@ -38,7 +38,6 @@ Convenient (**must have**) tool that will make development easier
 -   [solana cli](https://docs.solana.com/cli)
 -   [Rust Analyzer](https://rust-analyzer.github.io/) - Install it via extensions, if working on VS Code, other wise any Rust Language Server works.
 
-
 To install the Solana CLI run the command below,
 
 ```bash
@@ -902,8 +901,6 @@ Open the link returned after running your script. It should take you to the sols
 ![Screenshot of the result of calling our program!](/solana-nft-native/tx-hash-solscan.png "tx hash")
 
 To look at our token on solscan, we will click on the second signer. The one surrounded by a yellow border. That is our token mint account.
-
-</br>
 
 Open the second account and it should show you the details about the nft you created.
 
