@@ -10,7 +10,7 @@ tags = ["Rust", "solana"]
 
 Solana is a public, permissionless blockchain launched in 2020. It leverages computer hardware for its high throughput and performance. Solana has been the pioneer in cutting-edge innovation leading in the adoption of tech like [concurrent Merkle trees](https://docs.solana.com/learn/state-compression#what-is-a-concurrent-merkle-tree), [interfaces](https://forum.solana.com/tag/interfaces), [token-2022](https://spl.solana.com/token-2022)...etc
 
-I briefly talked about some [differences between Solana and EVM chains previously](../eifweekoneandtwo/#solana-comparison) and in this article I will take you through the process of minting an NFT using Rust, Anchor and the MetapleX SDK.
+I briefly talked about some [differences between Solana and EVM chains previously](../eifweekoneandtwo/#solana-comparison) and in this article I will take you through the process of minting an NFT using the Rust Solana SDK and the MetapleX SDK.
 
 <!-- more -->
 
@@ -38,7 +38,6 @@ Convenient (**must have**) tool that will make development easier
 -   [solana cli](https://docs.solana.com/cli)
 -   [Rust Analyzer](https://rust-analyzer.github.io/) - Install it via extensions, if working on VS Code, other wise any Rust Language Server works.
 
-<!-- -   [anchor cli](https://www.anchor-lang.com/) -->
 
 To install the Solana CLI run the command below,
 
@@ -66,8 +65,6 @@ solana-keygen new
 
 This command creates a new paper wallet in the `~/.config/solana/id.json` directory, though you have the option to tell it where to save the file using the `-o, --outfile <FILEPATH>` flag.
 
-<!-- On to anchor cli. Use the recommended method, which is using their `Anchor Version Manager`, which allows you to upgrade and downgrade your anchor ver  -->
-
 In this tutorial we will be writing a [native Rust Solana Program](https://docs.rs/solana-program/latest/solana_program/) though it's advisable to use the [anchor framework](https://www.anchor-lang.com/).
 
 **Why Native?** Because at the moment the solana cli and anchor are incompatible.
@@ -76,7 +73,7 @@ In this tutorial we will be writing a [native Rust Solana Program](https://docs.
 
 To start off, in Solana, everything is an account. You have data accounts that, you guessed it, store data and executable account(smart contracts) that run code when certain conditions are met.
 
-In the context of tokens/NFTs, Unlike in Ethereum, where you have predefined standards/interfaces for creating a contract that mint's tokens(nfts included), solana has the Token program. That means you do not have to deploy a contract everytime you want to mint a new token. This also makes it really easy to mint token using TypeScript or Python, if you have the web3.js Solana SDK.
+In the context of tokens/NFTs, Unlike in Ethereum, where you have predefined standards/interfaces for creating a contract that mint's tokens(nfts included), solana has the Token program. That means you do not have to deploy a contract every time you want to mint a new token. This also makes it really easy to mint token using TypeScript or Python, if you have the web3.js Solana SDK.
 
 <!-- Recent innovations on the Token program, i.e token-2022 means new features can be added to our tokens like `transfer fees`, `restrict transfers` and even introduce things like a `metadata pointer`(shameless plug, but I added this feature to the CLI ✌🏼) to the token program.
 
