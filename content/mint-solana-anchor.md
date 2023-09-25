@@ -10,7 +10,7 @@ tags = ["Rust", "solana"]
 
 In the [previous article](../mint-solana-rust) I showed you how to mint Solana NFT with the Metaplex sdk and the Solana SDK in native Rust.
 
-In this article we will mint our NFt using [anchor](https://www.anchor-lang.com/), which is a Solana program framework. Learn more about anchor in this [link](https://example.com) <!-- todo ADD LINK TO SOLANA MODULE HERE -->
+In this article we will mint our NFt using [anchor](https://www.anchor-lang.com/), which is a Solana program framework. Learn more about anchor in this [link](https://https://www.anchor-lang.com) <!-- todo ADD LINK TO SOLANA MODULE HERE -->
 
 <!-- more -->
 
