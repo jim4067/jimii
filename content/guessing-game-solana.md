@@ -535,3 +535,7 @@ it("guesses a random!", async () => {
 When we deploy our program and run our tests, we navigate to the explorer to check if our guess was correct. In my case, the number was larger than the random number generated, [guess transaction](https://explorer.solana.com/tx/5yf8CrJEQUMBuZgTCdU2vQVK3vWVfTghynGTssUVz735otn5GvCqbciPX9M7VrKz3gXAYLSJwZhuxwqY9kppbV8h?cluster=devnet)
 
 ![using exa to list the files in the working directory](/orao-vrf/guess-tx-details.png)
+
+### References
+
+Check out examples here - https://github.com/orao-network/solana-vrf/tree/master/rust/examples
