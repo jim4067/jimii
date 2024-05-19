@@ -1,6 +1,6 @@
 +++
 title = "Mint Solana NFT Using Anchor and Metaplex"
-date = 2023-08-25
+date = 2023-09-25
 category = "Prog"
 draft=false
 
@@ -216,7 +216,7 @@ The second downside. Suppose you want to introduce you non-crypto native friend 
 
 This is where the motivation to reduce the friction when working with solana tokens came in, which lead to spec a new way for the token account to map to the user's wallet, using the [**Associated Token Account**](https://spl.solana.com/token).
 
-The **Associated Token Account** is a PDA that is deterministically derived using the `address` and `mint` account.
+The **Associated Token Account** is a PDA that is deterministically derived using the `Associated Token Program`, the `user's address` and `mint account`.
 
 Let's take the accounts required for the mint
 
@@ -964,3 +964,5 @@ Clicking on the transaction link to the explorer, under the Token balances, you 
 To view the minted NFT, open the `minted nft` link and you should have something similar to this.
 
 ![Screenshot of the minted nft on the solana explorer!](/solana-nft-anchor/minted-nft.png "details of minted nft on explorer")
+
+Find the full article in [this repo](https://jimii.pages.dev/mint-solana-anchor/)
