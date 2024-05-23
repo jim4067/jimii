@@ -49,7 +49,7 @@ If not,
 -   [Install Solana](https://docs.solanalabs.com/cli/install)
 
 ```bash
-sh -c "$(curl -sSfL https://release.solana.com/v1.18.9/install)"
+sh -c "$(curl -sSfL https://release.solana.com/v1.17.28/install)"
 ```
 
 -   [Install anchor using avm](https://www.anchor-lang.com/docs/installation)
@@ -81,7 +81,7 @@ If you face any problems, please raise an issues in the official [Solana Stack E
 Let's get started by creating a new anchor project
 
 ```bash
-anchor init orao-vrf
+anchor init guessing-game
 ```
 
 Install the orao VRF crate with the `cpi` features
@@ -114,7 +114,7 @@ Don't worry if you encounter the `struct takes 0 lifetime arguments` error pictu
 
 ![Lifetime error upon initializing a new anchor project](/orao-vrf/no-accounts-error.png)
 
-The orao program is made up of various instructions, of interest to us is the [`request`](https://github.com/orao-network/solana-vrf/blob/f438eef602b3c716bef7edabec72a8bafa5d5338/rust/sdk/src/lib.rs#L126-L134) IX which we shall us to request randomness.
+The orao program is made up of various instructions, of interest to us is the [`request`](https://github.com/orao-network/solana-vrf/blob/f438eef602b3c716bef7edabec72a8bafa5d5338/rust/sdk/src/lib.rs#L126-L134) IX which we shall uss to request randomness.
 
 But before that
 
@@ -155,7 +155,7 @@ use orao_solana_vrf::{
 declare_id!("HMDRWmYvL2A9xVKZG8iA1ozxi4gMKiHQz9mFkURKrG4"); // ! UPDATE ME
 
 #[program]
-pub mod orao_vrf {
+pub mod guessing_game {
     use super::*;
 
     pub fn initialize(ctx: Context<GuessingGame>, force_seed: [u8; 32]) -> Result<()> {
@@ -256,7 +256,7 @@ use orao_solana_vrf::{
 declare_id!("HMDRWmYvL2A9xVKZG8iA1ozxi4gMKiHQz9mFkURKrG4"); // ! UPDATE ME
 
 #[program]
-pub mod orao_vrf {
+pub mod guessing_game {
     use super::*;
 
     pub fn initialize(ctx: Context<GuessingGame>, force_seed: [u8; 32]) -> Result<()> {
@@ -317,13 +317,13 @@ impl<'info> GuessingGame<'info> {
 
 We will begin by first writing our typescript tests to check whether everything is working as expected.
 
-To lessen our workload we will also be installing nacl and Orao TS Client. The TS client library from Orao that provides methods such as fetching the network config address and the orao programId instead of having to keep track of these ourselves. we will use nacl to sign the generated fulfilled
+To lessen our workload we will also be installing the Orao TS Client. The TS client library from Orao that provides methods such as fetching the network config address and the orao programId instead of having to keep track of these ourselves.
 
 ```bash
-yarn add @orao-network/solana-vrf nacl
+yarn add @orao-network/solana-vrf
 ```
 
-Let's take a look at our `orao-vrf.ts` file inside the `tests` directory. Nothing special happening here. We have one test which is for the `initialize` IX that we removed earlier. (let's get rid of this test).
+Let's take a look at our `guessing-game.ts` file inside the `tests` directory. Nothing special happening here. We have one test which is for the `initialize` IX that we removed earlier. (let's get rid of this test).
 
 The first line below, sets up our solana test environment, instructing anchor to use our local command-line wallet that we generated when we installed the solana CLI suite and run `solana-keygen new` and a keypair file `~/.config/solana/id.json` was generated. By default the connection string it will use will be the public API endpoints provided for free. If you face an error such as `failed to get recent blockhash: TypeError: fetch failed`, you should change this and use a private RPC provider to make the error go away.
 
@@ -332,7 +332,7 @@ The second line is the typescript type interface to interact with our program vi
 ```ts
 anchor.setProvider(anchor.AnchorProvider.env());
 
-const program = anchor.workspace.OraoVrf as Program<OraoVrf>;
+const program = anchor.workspace.GuessingGame as Program<GuessingGame>;
 ```
 
 Let write the test to call the `guess` IX. We will be interacting with the provider details a lot so let's move it to it's own variable
@@ -365,7 +365,7 @@ describe("orao-vrf", () => {
 	const provider = anchor.AnchorProvider.env();
 	anchor.setProvider(provider);
 
-	const program = anchor.workspace.OraoVrf as Program<OraoVrf>;
+	const program = anchor.workspace.GuessingGame as Program<GuessingGame>;
 
 	let force_seed = anchor.web3.Keypair.generate().publicKey.toBuffer();
 
@@ -413,7 +413,20 @@ Now, we are ready to build and deploy our program by running
 anchor build && anchor deploy
 ```
 
-If you happen to encounter the error below
+If you happen to encounter the errors below
+
+```bash
+error: package `solana-program v1.18.10` cannot be built because it requires rustc 1.75.0 or newer, while the currently active rustc version is 1.68.0-dev
+Either upgrade to rustc 1.75.0 or newer, or use
+cargo update -p solana-program@1.18.10 --precise ver
+where `ver` is the latest version of `solana-program` supporting rustc 1.68.0-dev
+```
+
+Fix it by downgrading the `tomo_edit` using this command
+
+```bash
+cargo update -p toml_edit@0.21.1 --precise 0.21.0
+```
 
 ```bash
 Error: Deploying program failed: RPC response error -32002: Transaction simulation failed: Error processing Instruction 0: account data too small for instruction [3 log messages]
