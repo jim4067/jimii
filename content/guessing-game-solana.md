@@ -8,19 +8,19 @@ draft=false
 tags = ["Rust", "solana", "CLI", "clap"]
 +++
 
-In this tutorial we will learn about Verifiable Random Functions by building a guessing game on the Solana blockchain using Orao Network's Random Verifiable Function service.
+In this tutorial, we will learn about Verifiable Random Functions by building a guessing game on the Solana blockchain using Orao Network's Random Verifiable Function service.
 
-We will implement the Solana program onchain, which generates a random number between 0 and 10. We will then build a simple CLI interface to interact with the program. The CLI will prompt the user for a number. After a guess is entered, the program will indicate whether the guess is too low or too high. If the guess is correct, the game will print a congratulatory message and exit.
+We will implement the Solana program on-chain, which generates a random number between 0 and 10. We will then build a simple CLI interface to interact with the program. The CLI will prompt the user for a number. After a guess is entered, the program will indicate whether the guess is too low or too high. If the guess is correct, the game will print a congratulatory message and exit.
 
 <!-- more -->
 
-**Note:** This tutorial is only meant to show you how you can generate and use a VRF inside your onchain program.
+**Note:** This tutorial is only meant to show you how you can generate and use a VRF inside your on-chain program.
 
 Use this GitHub to check against your code - [Calyptus-Learn/orao-vrf](https://github.com/Calyptus-Learn/orao-vrf).
 
 ## Verifiable Random Function
 
-Imagine that you a building a game on the Solana blockchain. Suppose it is similar to what we are going to build, `a guessing game`, but with a twist that the first person to guess the correct number wins a prize. How would you ensure fairness and transparency when generating the random numbers for the game. Due to the deterministic nature of blockchain, it would be very difficult to do this within your program(smart contract) and relying on a trusted centralized provider, but what if it get compromised?
+Imagine that you are building a game on the Solana blockchain. Suppose it is similar to what we are going to build, `a guessing game`, but with a twist that the first person to guess the correct number wins a prize. How would you ensure fairness and transparency when generating the random numbers for the game? Due to the deterministic nature of blockchain, it would be very difficult to do this within your program(smart contract) and rely on a trusted centralized provider, but what if it gets compromised?
 
 In comes, Verifiable Random functions.
 
@@ -30,7 +30,7 @@ TLDR; VRFs can be thought of as Random Number generators that can be proven.
 
 ## How Orao works
 
-Orao works by accepting a clients request (either through the Rust/Typescript SDK or a CPI call from another program), to generate randomness. Once generated, the randomness is sent to each of the authoritative nodes and fulfilled by the on-chain Orao VRF program.
+Orao works by accepting a client's request (either through the Rust/Typescript SDK or a CPI call from another program), to generate randomness. Once generated, the randomness is sent to each of the authoritative nodes and fulfilled by the on-chain Orao VRF program.
 
 Below is a diagram to demonstrate this process.
 
@@ -84,7 +84,7 @@ Let's get started by creating a new anchor project
 anchor init guessing-game
 ```
 
-Install the orao VRF crate with the `cpi` features
+Install the Orao VRF crate with the `cpi` features
 
 ```bash
 cargo add orao-solana-vrf --features="cpi"
@@ -114,34 +114,34 @@ Don't worry if you encounter the `struct takes 0 lifetime arguments` error pictu
 
 ![Lifetime error upon initializing a new anchor project](/orao-vrf/no-accounts-error.png)
 
-The orao program is made up of various instructions, of interest to us is the [`request`](https://github.com/orao-network/solana-vrf/blob/f438eef602b3c716bef7edabec72a8bafa5d5338/rust/sdk/src/lib.rs#L126-L134) IX which we shall uss to request randomness.
+The orao program is made up of various instructions, of interest to us is the [`request`](https://github.com/orao-network/solana-vrf/blob/f438eef602b3c716bef7edabec72a8bafa5d5338/rust/sdk/src/lib.rs#L126-L134) IX which we shall use to request randomness.
 
 But before that
 
 ## A quick primer on CPIs
 
-The Solana runtime makes it possible to call instructions/methods on another program. This is made possible by a concept know as Cross Program Invocation or CPI in short, which allows us to make call across different programs constrained to calls of up to 4 programs deep. It allows the caller program to call an instruction to the callee program with signer an writer privilege being passed between the two of them.
+The Solana runtime makes it possible to call instructions/methods on another program. This is made possible by a concept known as Cross Program Invocation or CPI in short, which allows us to make calls across different programs constrained to calls of up to 4 programs deep. It allows the caller program to call an instruction to the callee program with signer and writer privilege being passed between the two of them.
 
-Using the Anchor program, this process is simplified for us by having the [`CpiContext`](https://docs.rs/anchor-lang/latest/anchor_lang/context/struct.CpiContext.html). CpiContext encapsulates all accounts that we need to interact with when making our CPI call.
+Using the Anchor program, this process is simplified for us by having the [`CpiContext`](https://docs.rs/anchor-lang/latest/anchor_lang/context/struct.CpiContext.html). CpiContext encapsulates all accounts that we need to interact with when making our CPI calls.
 
-To note is that the `invoke` and `invoke_signed` methods are used to escalate the signer privileges to the program being called.
+To note, the `invoke` and `invoke_signed` methods are used to escalate the signer privileges to the program being called.
 
 ## Building the Guessing Game
 
 With most of the theory out of the way, we are ready to start building.
 
-To request randomness from the orao program from our VRF program, we will need to pass in these accounts
+To request randomness from the Orao program from our VRF program, we will need to pass in these accounts
 
 -   `payer (mutable, signer)` - pays for the randomness request.
--   `network_state (mutable)` - account that contains details about number of requests received and the [network configuration](https://github.com/orao-network/solana-vrf/blob/f438eef602b3c716bef7edabec72a8bafa5d5338/rust/sdk/src/state.rs#L14-L22) which is an account that stores details about the `fees`, `treasury address`, ... e.t.c
+-   `network_state (mutable)` - account that contains details about the number of requests received and the [network configuration](https://github.com/orao-network/solana-vrf/blob/f438eef602b3c716bef7edabec72a8bafa5d5338/rust/sdk/src/state.rs#L14-L22) which is an account that stores details about the `fees`, `treasury address`, ... e.t.c
 
 -   `treasury` - treasury account, where fees for using the VRF will be paid.
 -   `request` - an uninitialized account that contains the seed used to derive randomness, the actual randomness and a list of other responses.
--   `system_program` - the solana system program.
+-   `system_program` - the Solana system program.
 
 Let's get started by renaming our `Accounts` struct appropriately to `GuessingGame` and adding the required accounts.
 
-We will use the `initialize` method to initialize our guessing game, i.e create the random account with a random number that we will have our user guess until he get's it correct.
+We will use the `initialize` method to initialize our guessing game, i.e. create the randomness account with a random number that we will have our user guess until he gets it correct.
 
 With these changes, your program should start taking shape and you should have something that looks like this
 
@@ -198,11 +198,11 @@ pub struct GuessingGame<'info> {
 
 To note, with the code snippet above, we added the `#[instruction(force_seed: [u8; 32])]` macro to seed a random number, from a random public key.
 
-Next we implement the CPI method to make the call to the Orao VRF program's request IX
+Next, we implement the CPI method to make the call to the Orao VRF program's request IX.
 
-Finally lets implement the `initialize` functions for our contract.
+Finally let's implement the `initialize` functions for our contract.
 
-Since the function will be a CPI to an external program, let's implement the CPI call to the orao VRF program inside an `impl` block to house the accounts context for the external CPI call to the Orao program,.
+Since the function will be a CPI to an external program, let's implement the CPI call to the Orao VRF program inside an `impl` block to house the accounts context for the external CPI call to the Orao program,.
 First import the required libraries and the Orao program Accounts struct, which we have access because of the `cpi` features flag we used when installing the crate. Make note of the `cpi::accounts::Request` path as importing the Request Accounts struct directly from the crate won't compile and will class with the existing macro expansions.
 
 ```rust
@@ -212,7 +212,7 @@ use orao_solana_vrf::{
 };
 ```
 
-We can them implement the cpi context method that will call the VRF program within this impl block
+We can then implement the cpi context method that will call the VRF program within this impl block
 
 ```rust
 impl<'info> GuessingGame<'info> {
@@ -317,7 +317,7 @@ impl<'info> GuessingGame<'info> {
 
 We will begin by first writing our typescript tests to check whether everything is working as expected.
 
-To lessen our workload we will also be installing the Orao TS Client. The TS client library from Orao that provides methods such as fetching the network config address and the orao programId instead of having to keep track of these ourselves.
+To lessen our workload we will also be installing the Orao TS Client. The TS client library from Orao provides methods such as fetching the network config address and the Orao programId instead of having to keep track of these ourselves.
 
 ```bash
 yarn add @orao-network/solana-vrf
@@ -325,7 +325,7 @@ yarn add @orao-network/solana-vrf
 
 Let's take a look at our `guessing-game.ts` file inside the `tests` directory. Nothing special happening here. We have one test which is for the `initialize` IX that we removed earlier. (let's get rid of this test).
 
-The first line below, sets up our solana test environment, instructing anchor to use our local command-line wallet that we generated when we installed the solana CLI suite and run `solana-keygen new` and a keypair file `~/.config/solana/id.json` was generated. By default the connection string it will use will be the public API endpoints provided for free. If you face an error such as `failed to get recent blockhash: TypeError: fetch failed`, you should change this and use a private RPC provider to make the error go away.
+The first line below, sets up our Solana test environment, instructing anchor to use the local command-line wallet that we generated when we installed the Solana CLI suite and run `solana-keygen new` and a keypair file `~/.config/solana/id.json` was generated. By default the connection string it will use will be the public API endpoints provided for free. If you face an error such as `failed to get recent blockhash: TypeError: fetch failed`, you should change this and use a private RPC provider to make the error go away.
 
 The second line is the typescript type interface to interact with our program via the generated IDL.
 
@@ -347,7 +347,7 @@ We need to generate a random public key for our `force_seed`. We also need to co
 let force_seed = anchor.web3.Keypair.generate().publicKey.toBuffer();
 ```
 
-Next we instantiate a new class using the Orao client, generate our random account address, and add the VRF Treasury address
+Next, we instantiate a new class using the Orao client, generate our random account address, and add the VRF Treasury address
 
 ```ts
 const vrf = new Orao(provider);
@@ -441,7 +441,7 @@ solana program extend INSERT_PROGRAM_ADDRESS_HERE 20000 -u d -k ~/.config/solana
 
 The error above occurs on some of the `.17` releases because deploying a program with 2X the size was removed. On newer releases you can use the `--auto-extend-program` flag when deploying the program. Read more in the [Merged PR](https://github.com/anza-xyz/agave/pull/791)
 
-Finally you should now have generated your Randomness account, when calling the tests using.
+Finally, you should now have generated your Randomness account running the tests.
 
 ```bash
 anchor test --skip-build --skip-deploy # tells anchor to not build and deploy our program since we did it in the previous step
@@ -449,11 +449,11 @@ anchor test --skip-build --skip-deploy # tells anchor to not build and deploy ou
 
 Let's now work on the `guess` IX. The workflow will look something like this
 
-1. read randomness account to see the random numbers generated
+1. read the randomness account to see the random numbers generated
 2. read the user's input from function arguments
-3. print a program log of whether the use guessed the correct number, one too high or one too low from the first element in the random slice
+3. print a program log of whether the user guessed the correct number, one too high or one too low from the first element in the random slice
 
-Taking on 1, first, reading an account using anchor is easy. Since anchor handles generating all the borsh boilerplate for us, deserializing account data is trivial and easy to do with using `Account` types and luckily for us Orao has already typed this account for use. Let's use it to get the data inside it.
+Taking on 1, first, reading an account using anchor is easy. Since anchor handles generating all the borsh boilerplate for us, deserializing account data is trivial and easy to do with using `Account` types and luckily for us, Orao has already typed this account for use. Let's use it to get the data inside it.
 
 Let's also create a new file `misc.rs` where we will put this logic `touch misc.rs`. Import this module into our lib.rs file, using the statement `pub mod misc`
 
@@ -523,7 +523,7 @@ After deserializing the account data, we fetch the first 8 bytes from the random
 
 ### Guess IX client side
 
-Nothing much will change with out client code this time, the arguments we pass to our IX methods and the txHash, which we will use to check out our guess on the explorer
+Nothing much will change without client code this time, the arguments we pass to our IX methods and the txHash, which we will use to check out our guess on the explorer
 
 ```ts
 it("guesses a random!", async () => {
@@ -545,7 +545,7 @@ it("guesses a random!", async () => {
 });
 ```
 
-When we deploy our program and run our tests, we navigate to the explorer to check if our guess was correct. In my case, the number was larger than the random number generated, [guess transaction](https://explorer.solana.com/tx/5yf8CrJEQUMBuZgTCdU2vQVK3vWVfTghynGTssUVz735otn5GvCqbciPX9M7VrKz3gXAYLSJwZhuxwqY9kppbV8h?cluster=devnet)
+When we deploy our program and run our tests, we navigate to the explorer to check if our guess is correct. In my case, the number was larger than the random number generated, [guess transaction](https://explorer.solana.com/tx/5yf8CrJEQUMBuZgTCdU2vQVK3vWVfTghynGTssUVz735otn5GvCqbciPX9M7VrKz3gXAYLSJwZhuxwqY9kppbV8h?cluster=devnet)
 
 ![using exa to list the files in the working directory](/orao-vrf/guess-tx-details.png)
 
