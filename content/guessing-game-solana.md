@@ -10,11 +10,11 @@ tags = ["Rust", "solana", "CLI", "clap"]
 
 In this tutorial, we will learn about Verifiable Random Functions by building a guessing game on the Solana blockchain using Orao Network's Random Verifiable Function service.
 
-We will implement the Solana program on-chain, which generates a random number between 0 and 10. We will then build a simple CLI interface to interact with the program. The CLI will prompt the user for a number. After a guess is entered, the program will indicate whether the guess is too low or too high. If the guess is correct, the game will print a congratulatory message and exit.
+We will implement the Solana program on-chain, which generates a random number between 0 and 10. We will then build a simple CLI interface to interact with the program. The CLI will prompt the user for a number. After a guess is entered, the program will indicate whether the guess is too low or too high. The game will print a congratulatory message and exit if the guess is correct.
 
 <!-- more -->
 
-**Note:** This tutorial is only meant to show you how you can generate and use a VRF inside your on-chain program.
+**Note:** This tutorial only shows you how to generate and use a VRF inside your on-chain program.
 
 Use this GitHub to check against your code - [Calyptus-Learn/orao-vrf](https://github.com/Calyptus-Learn/orao-vrf).
 
