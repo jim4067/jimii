@@ -13,6 +13,8 @@ I'm trying to memorize and get used to keeping my hands on the keyboard using va
 
 This is my reference guide that you can use too
 
+<!-- more -->
+
 # Linux
 
 1. I use the `ctrl + tab` key combination to quickly change between windows that it's ingrained into my memory right now
@@ -25,7 +27,7 @@ Below is a video demonstration
 
 <div style="display: flex; justify-content: center;">
 <video width="500" height="full" controls>
-  <source src="/keeping-hands-off-keyboard/window-switching.mkv" type="video/mp4">
+  <source src="/keeping-hands-off-keyboard/window-switching.mp4" type="video/mp4">
 </video>
 </div>
 
